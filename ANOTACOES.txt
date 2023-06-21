@@ -1,0 +1,21 @@
+1) npm init -y
+
+Comando para criar o package.json básico, sendo que o -y é para responder yes para as perguntas e criar direto
+
+Adicionando no arquivo do package o type modules, que é a forma atual de import (o require, conhecido por commonjs está em desuso)
+
+Além do script npm start que coloquei, dá pra usar o httpie pra rodar em outro terminal o resultado do server, quando estiver startado é claro.
+Lembrar: só o start não precisa de 'run' no comando
+
+2) Estruturas da Aplicação:
+
+Criar, Listar, Editar e Remover usuários (CRUD). Com método HTTP + URL.
+
+GET (busca), POST (cria),
+
+PUT (atualiza uma entidade com várias informações/form), 
+PATCH (atualiza info ÚNICA ou específica de um recurso, tipo aceitar notificações ou não),
+
+DELETE (deleta)
+
+Ex: GET /users, POST /users etc
