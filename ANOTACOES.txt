@@ -19,3 +19,12 @@ PATCH (atualiza info ÚNICA ou específica de um recurso, tipo aceitar notifica�
 DELETE (deleta)
 
 Ex: GET /users, POST /users etc
+
+3) Postagem de dados é stateful, ou seja, tem seu estado gerenciado igual ao React. Ao restartar, os dados postados são resetados. Fazemos requisições como a POST com cabeçalhos, os famosos Headers. Por isso utilizamos setHeader e seus parâmetros antes do .end:
+
+No res.end, fizemos o JSON.stringify(users) para retornar os dados como string de JSON em vez de um Array de dados JS.
+
+Eis os vários tipos de cabeçalhos https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers
+Mas o típico é o 'Content-type', 'application/json'
+
+Desse modo, a informação não vem mais num formato de texto "jogado", ele faz uma estrutura de dados/Array em JSON
