@@ -30,3 +30,10 @@ Mas o típico é o 'Content-type', 'application/json'
 Desse modo, a informação não vem mais num formato de texto "jogado", ele faz uma estrutura de dados/Array em JSON
 
 HTTP Status Codes: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
+
+4) STREAMS: ver/trabalhar com dados que ainda estão carregando (por isso lembra streaming).
+
+Isso inclui para POST ou inserções em banco. Por isso o stream veio como solução: para não esperar o tempo completo de um upload, por exemplo. Já vai trabalhando com uma porção desses dados antes da transferência estar 100% completa.
+
+No nodejs, TODA PORTA DE ENTRADA/SAÍDA É UMA STREAM!!!
