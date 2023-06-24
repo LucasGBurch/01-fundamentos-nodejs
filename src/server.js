@@ -2,10 +2,21 @@ import http from 'node:http';
 
 const users = [];
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   const { method, url } = req;
 
-  // Padrão seria GET e '/'  // console.log(method, url) mostra
+  const buffers = [];
+
+  for await (const chunk of req) {
+    buffers.push(chunk);
+  }
+
+  // para acessar dados do body, como o name, é preciso usar o JSON.parse para não dar undefined:
+  try {
+    req.body = JSON.parse(Buffer.concat(buffers).toString());
+  } catch {
+    req.body = null;
+  }
 
   if (method === 'GET' && url === '/users') {
     return res
@@ -14,10 +25,12 @@ const server = http.createServer((req, res) => {
   }
 
   if (method === 'POST' && url === '/users') {
+    const { name, email } = req.body;
+
     users.push({
       id: 1,
-      name: 'John Doe',
-      email: 'johndoe@example.com',
+      name,
+      email,
     });
 
     return res.writeHead(201).end();
