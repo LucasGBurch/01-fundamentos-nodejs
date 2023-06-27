@@ -1,36 +1,21 @@
 import http from 'node:http';
-import { randomUUID } from 'node:crypto';
-// ID Único Universal
 import { json } from './middlewares/json.js';
-import { Database } from './database.js';
-
-// const users = []; database substitui este array
-const database = new Database();
+import { routes } from './routes.js';
 
 const server = http.createServer(async (req, res) => {
   const { method, url } = req;
 
   await json(req, res); // espera rodar este middleware ("interceptador da req acima") antes de prosseguir;
 
-  if (method === 'GET' && url === '/users') {
-    const users = database.select('users');
+  const route = routes.find((route) => {
+    return route.method === method && route.path === url;
+  });
 
-    return res.end(JSON.stringify(users));
+  if (route) {
+    return route.handler(req, res);
   }
 
-  if (method === 'POST' && url === '/users') {
-    const { name, email } = req.body;
-
-    const user = {
-      id: randomUUID(),
-      name,
-      email,
-    };
-
-    database.insert('users', user);
-
-    return res.writeHead(201).end();
-  }
+  console.log(route);
 
   return res.writeHead(404).end();
 });
