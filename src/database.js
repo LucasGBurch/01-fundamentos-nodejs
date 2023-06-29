@@ -14,7 +14,8 @@ export class Database {
       .then((data) => {
         this.#database = JSON.parse(data);
       }) // caso não exista:
-      .catch(() => { // chama o persist pra criá-lo:
+      .catch(() => {
+        // chama o persist pra criá-lo:
         this.#persist();
       });
   }
@@ -23,12 +24,14 @@ export class Database {
     fs.writeFile('db.json', JSON.stringify(this.#database));
   }
 
+  // GET
   select(table) {
     const data = this.#database[table] ?? [];
 
     return data;
   }
 
+  // POST
   insert(table, data) {
     // se já existe array:
     if (Array.isArray(this.#database[table])) {
@@ -41,4 +44,17 @@ export class Database {
 
     return data;
   }
+
+  // DELETE
+  delete(table, id) {
+    const rowIndex = this.#database[table].findIndex((row) => row.id === id);
+
+    if (rowIndex > -1) {
+      // findIndex retorna -1 se não encontra
+      this.#database[table].splice(rowIndex, 1);
+      this.#persist(); // persiste se encontra
+    }
+  }
+
+  // PUT
 }
