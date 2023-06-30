@@ -45,6 +45,17 @@ export class Database {
     return data;
   }
 
+  // PUT
+  update(table, id, data) {
+    const rowIndex = this.#database[table].findIndex((row) => row.id === id);
+
+    if (rowIndex > -1) {
+      // findIndex retorna -1 se não encontra
+      this.#database[table][rowIndex] = { id, ...data };
+      this.#persist(); // persiste se encontra
+    }
+  }
+
   // DELETE
   delete(table, id) {
     const rowIndex = this.#database[table].findIndex((row) => row.id === id);
@@ -55,6 +66,4 @@ export class Database {
       this.#persist(); // persiste se encontra
     }
   }
-
-  // PUT
 }
