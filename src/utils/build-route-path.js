@@ -10,7 +10,7 @@ export function buildRoutePath(path) {
 
   // console.log(pathWithParams);
 
-  const pathRegex = new RegExp(`^${pathWithParams}`);
+  const pathRegex = new RegExp(`^${pathWithParams}(?<query>\\?(.*))?$`);
 
   return pathRegex;
 }
