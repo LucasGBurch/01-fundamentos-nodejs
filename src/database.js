@@ -25,8 +25,17 @@ export class Database {
   }
 
   // GET
-  select(table) {
-    const data = this.#database[table] ?? [];
+  select(table, search) {
+    let data = this.#database[table] ?? [];
+
+    if (search) {
+      data = data.filter((row) => {
+        // entries cria um Array para cada item dentro de outro Array. Ex: [1, 2] => [[1], [2]]
+        return Object.entries(search).some(([key, value]) => {
+          return row[key].toLowerCase().includes(value.toLowerCase());
+        });
+      });
+    }
 
     return data;
   }
